@@ -41,15 +41,14 @@
     </div>
     <script>
         const apiKey = "e90863f1e950ed646f4fc2cdfa3a5c0c";
-        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q=";
+        const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=metric";
         const searchBox = document.querySelector(".search input");
         const searchBtn = document.querySelector(".search button");
         const weatherIcon=document.querySelector(".weather-icon");
        
         async function checkWeather(city)
         {
-            const response=await fetch(apiUrl + city + `&appid= ${apiKey}`);
-
+            const response = await fetch(`${apiUrl}&q=${city}&appid=${apiKey}`);
             if(response.status == 404)
             {
                 document.querySelector(".error").style.display = "block";
@@ -57,7 +56,7 @@
             }
             else{
                      var data = await response.json();
-
+                     console.log(data);
 
                     document.querySelector(".city").innerHTML = data.name;
                     document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°C";
@@ -99,7 +98,6 @@
         searchBtn.addEventListener("click",()=>{
             checkWeather(searchBox.value);
         });
-        checkWeather();
     </script>
 </body>
 </html>
